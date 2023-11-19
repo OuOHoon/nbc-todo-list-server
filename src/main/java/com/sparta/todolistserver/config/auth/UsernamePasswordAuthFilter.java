@@ -2,7 +2,7 @@ package com.sparta.todolistserver.config.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.todolistserver.exception.LoginException;
-import com.sparta.todolistserver.request.LoginRequest;
+import com.sparta.todolistserver.request.auth.LoginRequest;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

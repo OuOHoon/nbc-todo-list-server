@@ -1,10 +1,12 @@
 package com.sparta.todolistserver.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,4 +22,7 @@ public class Member {
     @Column(unique = true)
     private String username;
     private String password;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Card> cards;
 }

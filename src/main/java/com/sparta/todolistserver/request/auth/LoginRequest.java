@@ -1,4 +1,4 @@
-package com.sparta.todolistserver.request;
+package com.sparta.todolistserver.request.auth;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

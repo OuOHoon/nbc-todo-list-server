@@ -40,6 +40,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             if (!jwtUtil.validateToken(tokenValue)) {
                 log.error("Token Error");
+                filterChain.doFilter(req, res);
                 return;
             }
 

@@ -23,7 +23,6 @@ import java.util.Date;
 public class JwtUtil {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
-    public static final String AUTHORIZATION_KEY = "auth";
     public static final String BEARER_PREFIX = "Bearer ";
     private final long TOKEN_TIME = 60 * 60 * 1000L;
 
@@ -32,7 +31,7 @@ public class JwtUtil {
     private Key key;
     private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
-    public static final Logger logger = LoggerFactory.getLogger("Jwt 로그");
+    public static final Logger logger = LoggerFactory.getLogger("JwtUtil");
 
     @PostConstruct
     public void init() {
@@ -47,7 +46,6 @@ public class JwtUtil {
                 Jwts.builder()
                         .setSubject(username)
                         .setExpiration(new Date(date.getTime() + TOKEN_TIME))
-                        .setIssuedAt(date)
                         .signWith(key, signatureAlgorithm)
                         .compact();
     }

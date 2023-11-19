@@ -67,9 +67,11 @@ public class SecurityConfig {
                 -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.authorizeHttpRequests((request) -> {
-            request.requestMatchers(new AntPathRequestMatcher("/members", "POST")).permitAll() // 회원가입
-                    .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
-                    .anyRequest().authenticated();
+            request
+                .requestMatchers(new AntPathRequestMatcher("/members", "POST")).permitAll() // 회원가입
+                .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll() // h2 콘솔
+                .requestMatchers(new AntPathRequestMatcher("/cards/**", "GET")).permitAll() // 카드 조회
+                .anyRequest().authenticated();
         });
 
 

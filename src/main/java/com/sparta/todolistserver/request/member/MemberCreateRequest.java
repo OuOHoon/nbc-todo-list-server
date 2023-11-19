@@ -1,4 +1,4 @@
-package com.sparta.todolistserver.request;
+package com.sparta.todolistserver.request.member;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
