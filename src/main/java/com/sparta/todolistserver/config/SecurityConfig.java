@@ -71,9 +71,10 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/members", "POST")).permitAll() // 회원가입
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll() // h2 콘솔
                 .requestMatchers(new AntPathRequestMatcher("/cards/**", "GET")).permitAll() // 카드 조회
+                .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll() // 스웨거
+                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll() // 스웨거
                 .anyRequest().authenticated();
         });
-
 
         http.addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthFilter.class);
         http.addFilterBefore(usernamePasswordAuthFilter(), UsernamePasswordAuthenticationFilter.class);
