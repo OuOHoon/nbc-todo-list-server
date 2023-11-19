@@ -2,19 +2,28 @@ package com.sparta.todolistserver.controller;
 
 import com.sparta.todolistserver.exception.DuplicateUsernameException;
 import com.sparta.todolistserver.response.BaseResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.stream.Collectors;
+
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionController {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<BaseResponse> methodArgumentNotValidException(MethodArgumentNotValidException exception) {
+        String errorMessage = exception.getBindingResult().getAllErrors().stream()
+                .map(ObjectError::getDefaultMessage)
+                .collect(Collectors.joining(" "));
+
         return ResponseEntity.badRequest()
-                .body(BaseResponse.of(exception.getMessage(), HttpStatus.BAD_REQUEST.value()));
+                .body(BaseResponse.of(errorMessage, HttpStatus.BAD_REQUEST.value()));
     }
 
     @ExceptionHandler(DuplicateUsernameException.class)
