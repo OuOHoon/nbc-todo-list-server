@@ -5,12 +5,15 @@ import com.sparta.todolistserver.request.card.CardCreateRequest;
 import com.sparta.todolistserver.request.card.CardUpdateRequest;
 import com.sparta.todolistserver.response.BaseResponse;
 import com.sparta.todolistserver.response.card.CardDetailResponse;
+import com.sparta.todolistserver.response.card.CardResponse;
 import com.sparta.todolistserver.service.CardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cards")
@@ -36,6 +39,12 @@ public class CardController {
         log.info("findOne {}", id);
         CardDetailResponse card = cardService.findOne(id);
         return new ResponseEntity<>(card, HttpStatus.OK);
+    }
+
+    @GetMapping("/{search}")
+    public ResponseEntity<List<CardResponse>> findCardsByTitle(@PathVariable String search) {
+        List<CardResponse> cardsByTitle = cardService.findCardsByTitle(search);
+        return new ResponseEntity<>(cardsByTitle, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")

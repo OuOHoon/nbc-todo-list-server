@@ -8,4 +8,6 @@ import java.util.List;
 public interface CardRepository extends JpaRepository<Card, Long> {
     List<Card> findByMember_Username(String username);
 
+    List<Card> findByTitleContains(String title);
+
 }

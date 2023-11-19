@@ -14,6 +14,8 @@ import com.sparta.todolistserver.response.card.CardResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class CardService {
 
@@ -53,6 +55,11 @@ public class CardService {
             throw new InvalidUserException();
         }
         card.updateFinish();
+    }
+
+    public List<CardResponse> findCardsByTitle(String title) {
+        List<Card> cards = cardRepository.findByTitleContains(title);
+        return cards.stream().map(card -> toResponse(card.getMember().getUsername(), card)).toList();
     }
 
     private Card toEntity(CardCreateRequest request) {
