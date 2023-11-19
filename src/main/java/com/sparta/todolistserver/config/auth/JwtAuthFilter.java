@@ -3,6 +3,7 @@ package com.sparta.todolistserver.config.auth;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             if (!jwtUtil.validateToken(tokenValue)) {
                 log.error("Token Error");
+                Cookie cookie = new Cookie(JwtUtil.AUTHORIZATION_HEADER, null);
+                cookie.setMaxAge(0);
+                res.addCookie(cookie);
                 filterChain.doFilter(req, res);
                 return;
             }

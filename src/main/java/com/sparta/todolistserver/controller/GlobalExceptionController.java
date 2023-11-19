@@ -2,6 +2,7 @@ package com.sparta.todolistserver.controller;
 
 import com.sparta.todolistserver.exception.DuplicateUsernameException;
 import com.sparta.todolistserver.exception.InvalidUserException;
+import com.sparta.todolistserver.exception.NotExistUserException;
 import com.sparta.todolistserver.exception.NotExistCardException;
 import com.sparta.todolistserver.response.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -44,5 +45,11 @@ public class GlobalExceptionController {
     public ResponseEntity<BaseResponse> invalidUserException(InvalidUserException e) {
         return new ResponseEntity<>(BaseResponse.of(e.getMessage(), HttpStatus.UNAUTHORIZED.value()),
                 HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(NotExistUserException.class)
+    public ResponseEntity<BaseResponse> loginException(NotExistUserException e) {
+        return ResponseEntity.badRequest()
+                .body(BaseResponse.of(e.getMessage(), HttpStatus.BAD_REQUEST.value()));
     }
 }

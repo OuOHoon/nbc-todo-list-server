@@ -1,7 +1,7 @@
 package com.sparta.todolistserver.config.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.todolistserver.exception.LoginException;
+import com.sparta.todolistserver.exception.NotExistUserException;
 import com.sparta.todolistserver.request.auth.LoginRequest;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -36,7 +36,7 @@ public class UsernamePasswordAuthFilter extends UsernamePasswordAuthenticationFi
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
             );
         } catch (IOException e) {
-            throw new LoginException();
+            throw new NotExistUserException();
         }
     }
 
@@ -54,6 +54,6 @@ public class UsernamePasswordAuthFilter extends UsernamePasswordAuthenticationFi
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               AuthenticationException failed) throws IOException, ServletException {
         log.info("인증 실패");
-        throw new LoginException();
+        throw new NotExistUserException();
     }
 }

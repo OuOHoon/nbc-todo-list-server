@@ -54,4 +54,6 @@ public class CardController {
         cardService.updateFinish(id, userDetails.getUsername());
         return new ResponseEntity<>(BaseResponse.of("update finish", 200), HttpStatus.OK);
     }
+
+
 }
