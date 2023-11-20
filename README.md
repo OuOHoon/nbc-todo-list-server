@@ -32,7 +32,7 @@ DI는 IoC의 한 종류로, 생성자 주입, 필드 주입, 메서드 주입같
 <img width="735" alt="image" src="https://github.com/OuOHoon/nbc-todo-list-server/assets/17760465/c5878edb-0c89-41fa-b638-1c6bd5f3bce6">
 
 ## API 명세서
-Swagger로 생성한 API 명세입니다. Jwt Authorize 설정은 추가하려고 찾아보는 중입니다 ㅎㅎ..
+Swagger로 생성한 API 명세입니다. Jwt Authorize 설정은 추가하려고 찾아보는 중입니다 ㅎㅎ..
 <img width="1461" alt="image" src="https://github.com/OuOHoon/nbc-todo-list-server/assets/17760465/2e2b21e0-cdfa-47ff-87b8-351bec68a26c">
 
 <img width="1399" alt="image" src="https://github.com/OuOHoon/nbc-todo-list-server/assets/17760465/5e73d88b-bfe7-40b8-afb3-045a80916234">
