@@ -29,5 +29,6 @@ DI는 IoC의 한 종류로, 생성자 주입, 필드 주입, 메서드 주입같
 <img width="735" alt="image" src="https://github.com/OuOHoon/nbc-todo-list-server/assets/17760465/c5878edb-0c89-41fa-b638-1c6bd5f3bce6">
 
 ## API 명세서
-Swagger로 생성한 기본 API 명세입니다. 다른 설정은 추가하지 않았습니다.
-<img width="1475" alt="image" src="https://github.com/OuOHoon/nbc-todo-list-server/assets/17760465/91ba3410-3de5-4ec8-9f88-b25eec35d890">
+Swagger로 생성한 기본 API 명세입니다. 다른 설정은 추가하지 않았습니다.
+<img width="1448" alt="image" src="https://github.com/OuOHoon/nbc-todo-list-server/assets/17760465/c28a7795-e68c-4820-ac06-32676dbb5a53">
+<img width="1399" alt="image" src="https://github.com/OuOHoon/nbc-todo-list-server/assets/17760465/5e73d88b-bfe7-40b8-afb3-045a80916234">
