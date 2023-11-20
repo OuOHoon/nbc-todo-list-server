@@ -11,10 +11,14 @@ import com.sparta.todolistserver.request.card.CardCreateRequest;
 import com.sparta.todolistserver.request.card.CardUpdateRequest;
 import com.sparta.todolistserver.response.card.CardDetailResponse;
 import com.sparta.todolistserver.response.card.CardResponse;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CardService {
@@ -55,6 +59,17 @@ public class CardService {
             throw new InvalidUserException();
         }
         card.updateFinish();
+    }
+
+    public Map<String, List<CardResponse>> findAllOrderByCreatedAtDesc() {
+        List<Card> cards = cardRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+        Map<String, List<CardResponse>> result = new HashMap<>();
+        cards.forEach((card) -> {
+            List<CardResponse> list = result.getOrDefault(card.getMember().getUsername(), new ArrayList<>());
+            list.add(toResponse(card.getMember().getUsername(), card));
+            result.put(card.getMember().getUsername(), list);
+        });
+        return result;
     }
 
     public List<CardResponse> findCardsByTitle(String title) {

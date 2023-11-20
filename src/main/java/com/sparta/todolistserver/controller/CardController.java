@@ -15,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/cards")
@@ -40,6 +41,12 @@ public class CardController {
         log.info("findOne {}", id);
         CardDetailResponse card = cardService.findOne(id);
         return new ResponseEntity<>(card, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<Map<String, List<CardResponse>>> findAll() {
+        Map<String, List<CardResponse>> cards = cardService.findAllOrderByCreatedAtDesc();
+        return new ResponseEntity<>(cards, HttpStatus.OK);
     }
 
     @GetMapping("/search")
