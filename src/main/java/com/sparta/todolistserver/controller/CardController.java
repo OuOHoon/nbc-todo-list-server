@@ -2,6 +2,7 @@ package com.sparta.todolistserver.controller;
 
 import com.sparta.todolistserver.config.auth.UserDetailsImpl;
 import com.sparta.todolistserver.request.card.CardCreateRequest;
+import com.sparta.todolistserver.request.card.CardSearchRequest;
 import com.sparta.todolistserver.request.card.CardUpdateRequest;
 import com.sparta.todolistserver.response.BaseResponse;
 import com.sparta.todolistserver.response.card.CardDetailResponse;
@@ -41,9 +42,9 @@ public class CardController {
         return new ResponseEntity<>(card, HttpStatus.OK);
     }
 
-    @GetMapping("/{search}")
-    public ResponseEntity<List<CardResponse>> findCardsByTitle(@PathVariable String search) {
-        List<CardResponse> cardsByTitle = cardService.findCardsByTitle(search);
+    @GetMapping("/search")
+    public ResponseEntity<List<CardResponse>> findCardsByTitle(@RequestBody CardSearchRequest request) {
+        List<CardResponse> cardsByTitle = cardService.findCardsByTitle(request.getTitle());
         return new ResponseEntity<>(cardsByTitle, HttpStatus.OK);
     }
 
