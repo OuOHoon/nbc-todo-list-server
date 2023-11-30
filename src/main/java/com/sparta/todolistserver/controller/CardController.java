@@ -29,8 +29,9 @@ public class CardController {
     }
 
     @PostMapping
-    public ResponseEntity<CardDetailResponse> create(@RequestBody CardCreateRequest request,
-                                                     @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<CardDetailResponse> create(
+            @RequestBody CardCreateRequest request,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
         log.info("create {}", request.getTitle());
         CardDetailResponse card = cardService.create(request, userDetails.getUsername());
         return new ResponseEntity<>(card, HttpStatus.CREATED);
@@ -56,17 +57,19 @@ public class CardController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CardDetailResponse> updateOne(@PathVariable Long id,
-                                                        @AuthenticationPrincipal UserDetailsImpl userDetails,
-                                                        @RequestBody CardUpdateRequest request) {
+    public ResponseEntity<CardDetailResponse> updateOne(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserDetailsImpl userDetails,
+            @RequestBody CardUpdateRequest request) {
         log.info("updateOne {}", id);
         CardDetailResponse card = cardService.updateOne(id, userDetails.getUsername(), request);
         return new ResponseEntity<>(card, HttpStatus.OK);
     }
 
     @PostMapping("/{id}/finish")
-    public ResponseEntity<BaseResponse> updateFinish(@PathVariable Long id,
-                                                     @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<BaseResponse> updateFinish(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
         log.info("updateFinish {}", id);
         cardService.updateFinish(id, userDetails.getUsername());
         return new ResponseEntity<>(BaseResponse.of("update finish", 200), HttpStatus.OK);

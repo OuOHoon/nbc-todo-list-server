@@ -19,7 +19,6 @@ public class Comment {
 
     private String content;
 
-
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
@@ -28,9 +27,10 @@ public class Comment {
     @JoinColumn(name = "card_id")
     private Card card;
 
-    public void updateContent(String content) {
+    public void updateComment(String content) {
         this.content = content;
     }
+
     public void setMember(Member member) {
         this.member = member;
     }

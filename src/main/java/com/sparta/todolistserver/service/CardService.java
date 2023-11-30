@@ -58,7 +58,7 @@ public class CardService {
         if (!card.getMember().getUsername().equals(username)) {
             throw new InvalidUserException();
         }
-        card.updateFinish();
+        card.setFinish();
     }
 
     public Map<String, List<CardResponse>> findAllOrderByCreatedAtDesc() {
@@ -97,7 +97,7 @@ public class CardService {
         return CardResponse.builder()
                 .title(card.getTitle())
                 .author(username)
-                .isFinish(card.getIsFinish())
+                .isFinish(card.getIsFinished())
                 .createdAt(card.getCreatedAt())
                 .build();
     }

@@ -21,6 +21,7 @@ public class Member {
 
     @Column(unique = true)
     private String username;
+
     private String password;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<BaseResponse> login(HttpServletResponse response) {
         return new ResponseEntity<>(BaseResponse.of("login", 200), HttpStatus.OK);
     }

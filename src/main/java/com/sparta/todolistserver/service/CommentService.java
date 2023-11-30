@@ -45,7 +45,7 @@ public class CommentService {
         if (!comment.getMember().getUsername().equals(username)) {
             throw new InvalidUserException();
         }
-        comment.updateContent(request.getContent());
+        comment.updateComment(request.getContent());
         return toResponse(comment);
     }
 

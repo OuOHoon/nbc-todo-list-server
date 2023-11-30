@@ -23,27 +23,29 @@ public class Card {
     private Long id;
 
     private String title;
+
     private String content;
+
     @CreatedDate
     private LocalDate createdAt;
+
     @Builder.Default
-    private Boolean isFinish = Boolean.FALSE;
+    private Boolean isFinished = Boolean.FALSE;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
 
     public void updateCard(String title, String content) {
         this.title = title;
         this.content = content;
     }
 
-    public void updateFinish() {
-        this.isFinish = Boolean.TRUE;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
+    public void setFinish() {
+        this.isFinished = Boolean.TRUE;
+    }
 }
