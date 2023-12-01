@@ -5,18 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDate;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Getter
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Card {
+public class Card extends BaseEntity {
 
     @Id
     @GeneratedValue
@@ -25,9 +20,6 @@ public class Card {
     private String title;
 
     private String content;
-
-    @CreatedDate
-    private LocalDate createdAt;
 
     @Builder.Default
     private Boolean isFinished = Boolean.FALSE;

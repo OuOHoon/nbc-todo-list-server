@@ -21,26 +21,29 @@ public class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<CommentResponse> createComment(@PathVariable Long cardId,
-                                                         @RequestBody CommentCreateRequest request,
-                                                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<CommentResponse> createComment(
+            @PathVariable Long cardId,
+            @RequestBody CommentCreateRequest request,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
         CommentResponse response = commentService.create(userDetails.getUsername(), cardId, request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/{commentId}")
-    public ResponseEntity<CommentResponse> updateComment(@PathVariable Long cardId,
-                                                         @PathVariable Long commentId,
-                                                         @RequestBody CommentUpdateRequest request,
-                                                         @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<CommentResponse> updateComment(
+            @PathVariable Long cardId,
+            @PathVariable Long commentId,
+            @RequestBody CommentUpdateRequest request,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
         CommentResponse response = commentService.update(userDetails.getUsername(), commentId, request);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<BaseResponse> removeComment(@PathVariable Long cardId,
-                                                      @PathVariable Long commentId,
-                                                      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<BaseResponse> removeComment(
+            @PathVariable Long cardId,
+            @PathVariable Long commentId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
         commentService.remove(userDetails.getUsername(), commentId);
         return new ResponseEntity<>(BaseResponse.of("remove comment", HttpStatus.NO_CONTENT.value()),
                 HttpStatus.NO_CONTENT);

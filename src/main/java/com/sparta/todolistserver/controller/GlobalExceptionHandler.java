@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 @Slf4j
-public class GlobalExceptionController {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<BaseResponse> methodArgumentNotValidException(MethodArgumentNotValidException exception) {

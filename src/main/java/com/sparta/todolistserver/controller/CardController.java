@@ -8,6 +8,7 @@ import com.sparta.todolistserver.response.BaseResponse;
 import com.sparta.todolistserver.response.card.CardDetailResponse;
 import com.sparta.todolistserver.response.card.CardResponse;
 import com.sparta.todolistserver.service.CardService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +20,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/cards")
+@RequiredArgsConstructor
 @Slf4j(topic = "CardController")
 public class CardController {
 
     private final CardService cardService;
-
-    public CardController(CardService cardService) {
-        this.cardService = cardService;
-    }
 
     @PostMapping
     public ResponseEntity<CardDetailResponse> create(
@@ -74,6 +72,4 @@ public class CardController {
         cardService.updateFinish(id, userDetails.getUsername());
         return new ResponseEntity<>(BaseResponse.of("update finish", 200), HttpStatus.OK);
     }
-
-
 }

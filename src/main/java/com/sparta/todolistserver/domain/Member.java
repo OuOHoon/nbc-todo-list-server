@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue
