@@ -93,7 +93,7 @@ class MemberCreateRequestTest {
         }
 
         @Test
-        public void Given_InvalidSizePassword_Then_HasConstraintViolation() {
+        public void Given_InvalidSizePassword_When_Validate_Then_HasConstraintViolation() {
             //given
             MemberCreateRequest sizeOverRequest =
                     new MemberCreateRequest("username", "password123456789");
@@ -110,7 +110,7 @@ class MemberCreateRequestTest {
         }
 
         @Test
-        public void Given_InvalidPatternPassword_Then_HasConstraintViolation() {
+        public void Given_InvalidPatternPassword_When_Validate_Then_HasConstraintViolation() {
             //given
             MemberCreateRequest upperCaseRequest =
                     new MemberCreateRequest("username", "password!");
