@@ -8,6 +8,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.json.JsonTest;
+import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Set;
@@ -15,10 +18,14 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("test")
+@JsonTest
 class MemberCreateRequestTest {
 
     private static ValidatorFactory validatorFactory;
     private static Validator validator;
+
+    @Autowired
+    private JacksonTester<MemberCreateRequest> json;
 
     @BeforeAll
     static void setValidator() {
@@ -30,6 +37,7 @@ class MemberCreateRequestTest {
     @DisplayName("Username 테스트")
     class UsernameTest {
         @Test
+        @DisplayName("Pattern, Size 모두 통과")
         public void Given_ValidUsername_When_Validate_Then_NoConstraintViolation() {
             //given
             MemberCreateRequest validRequest =
@@ -44,6 +52,7 @@ class MemberCreateRequestTest {
         }
 
         @Test
+        @DisplayName("Size 통과 못하는 경우")
         public void Given_InvalidSizeUsername_When_Validate_Then_HasConstraintViolation() {
             //given
             MemberCreateRequest sizeOverRequest =
@@ -63,6 +72,7 @@ class MemberCreateRequestTest {
         }
 
         @Test
+        @DisplayName("Pattern 통과 못하는 경우")
         public void Given_InvalidPatternUsername_When_Validate_Then_HasConstraintViolation() {
             //given
             MemberCreateRequest upperCaseRequest =
@@ -87,6 +97,7 @@ class MemberCreateRequestTest {
     class PasswordTest {
 
         @Test
+        @DisplayName("Pattern, Size 모두 통과")
         public void Given_ValidPassword_When_Validate_Then_NoConstraintViolation() {
             //given
             MemberCreateRequest validRequest =
@@ -101,6 +112,7 @@ class MemberCreateRequestTest {
         }
 
         @Test
+        @DisplayName("Size 통과 못하는 경우")
         public void Given_InvalidSizePassword_When_Validate_Then_HasConstraintViolation() {
             //given
             MemberCreateRequest sizeOverRequest =
@@ -120,6 +132,7 @@ class MemberCreateRequestTest {
         }
 
         @Test
+        @DisplayName("Pattern 통과 못하는 경우")
         public void Given_InvalidPatternPassword_When_Validate_Then_HasConstraintViolation() {
             //given
             MemberCreateRequest upperCaseRequest =
@@ -136,6 +149,40 @@ class MemberCreateRequestTest {
             //then
             assertThat(upperCase.size()).isGreaterThan(0);
             assertThat(notEnglish.size()).isGreaterThan(0);
+        }
+    }
+
+    @Nested
+    @DisplayName("Json 테스트")
+    class JsonTest {
+
+        @Test
+        @DisplayName("Object->JsonString")
+        public void testSerialize() throws Exception {
+            //given
+            MemberCreateRequest memberCreateRequest = new MemberCreateRequest("username", "password");
+
+            //when + then
+            assertThat(json.write(memberCreateRequest))
+                    .extractingJsonPathStringValue("@.username")
+                    .isEqualTo("username");
+            assertThat(json.write(memberCreateRequest))
+                    .extractingJsonPathStringValue("@.password")
+                    .isEqualTo("password");
+        }
+
+        @Test
+        @DisplayName("JsonString->Object")
+        public void testDeserialize() throws Exception {
+            //given
+            String jsonString = "{\"username\":\"username\",\"password\":\"password\"}";
+            MemberCreateRequest memberCreateRequest = new MemberCreateRequest("username", "password");
+
+            //when + then
+            assertThat(json.parseObject(jsonString).getUsername())
+                    .isEqualTo(memberCreateRequest.getUsername());
+            assertThat(json.parseObject(jsonString).getPassword())
+                    .isEqualTo(memberCreateRequest.getPassword());
         }
     }
 }

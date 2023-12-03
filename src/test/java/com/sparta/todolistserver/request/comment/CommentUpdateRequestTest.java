@@ -1,4 +1,4 @@
-package com.sparta.todolistserver.request.card;
+package com.sparta.todolistserver.request.comment;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,34 +10,34 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@ActiveProfiles("test")
 @JsonTest
-class CardSearchRequestTest {
+@ActiveProfiles("test")
+class CommentUpdateRequestTest {
 
     @Autowired
-    private JacksonTester<CardSearchRequest> json;
+    private JacksonTester<CommentUpdateRequest> json;
 
     @Test
     @DisplayName("Object->JsonString")
     public void testSerialize() throws Exception {
         //given
-        CardSearchRequest cardSearchRequest = new CardSearchRequest("searchTitle");
+        CommentUpdateRequest commentUpdateRequest = new CommentUpdateRequest("content");
 
         //when + then
-        assertThat(json.write(cardSearchRequest))
-                .extractingJsonPathStringValue("@.title")
-                .isEqualTo("searchTitle");
+        assertThat(json.write(commentUpdateRequest))
+                .extractingJsonPathStringValue("@.content")
+                .isEqualTo("content");
     }
 
     @Test
     @DisplayName("JsonString->Object")
     public void testDeserialize() throws Exception {
         //given
-        String jsonString = "{\"title\":\"searchTitle\"}";
-        CardSearchRequest cardSearchRequest = new CardSearchRequest("searchTitle");
+        String jsonString = "{\"content\":\"content\"}";
+        CommentUpdateRequest commentUpdateRequest = new CommentUpdateRequest("content");
 
         //when + then
-        assertThat(json.parseObject(jsonString).getTitle())
-                .isEqualTo(cardSearchRequest.getTitle());
+        assertThat(json.parseObject(jsonString).getContent())
+                .isEqualTo(commentUpdateRequest.getContent());
     }
 }

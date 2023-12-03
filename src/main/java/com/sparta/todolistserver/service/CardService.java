@@ -97,7 +97,7 @@ public class CardService {
         return CardResponse.builder()
                 .title(card.getTitle())
                 .author(username)
-                .isFinish(card.getIsFinished())
+                .isFinished(card.getIsFinished())
                 .createdAt(card.getCreatedAt())
                 .build();
     }

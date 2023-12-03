@@ -14,5 +14,5 @@ public class CardResponse {
     private String title;
     private String author;
     private LocalDate createdAt;
-    private Boolean isFinish;
+    private Boolean isFinished;
 }

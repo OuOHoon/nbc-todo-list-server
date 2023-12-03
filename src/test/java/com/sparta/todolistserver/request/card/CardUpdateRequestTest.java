@@ -8,36 +8,40 @@ import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @JsonTest
-class CardSearchRequestTest {
+class CardUpdateRequestTest {
 
     @Autowired
-    private JacksonTester<CardSearchRequest> json;
+    private JacksonTester<CardUpdateRequest> json;
 
     @Test
     @DisplayName("Object->JsonString")
     public void testSerialize() throws Exception {
         //given
-        CardSearchRequest cardSearchRequest = new CardSearchRequest("searchTitle");
+        CardUpdateRequest cardUpdateRequest = new CardUpdateRequest("title", "content");
 
         //when + then
-        assertThat(json.write(cardSearchRequest))
+        assertThat(json.write(cardUpdateRequest))
                 .extractingJsonPathStringValue("@.title")
-                .isEqualTo("searchTitle");
+                .isEqualTo("title");
+        assertThat(json.write(cardUpdateRequest))
+                .extractingJsonPathStringValue("@.content")
+                .isEqualTo("content");
     }
 
     @Test
     @DisplayName("JsonString->Object")
     public void testDeserialize() throws Exception {
         //given
-        String jsonString = "{\"title\":\"searchTitle\"}";
-        CardSearchRequest cardSearchRequest = new CardSearchRequest("searchTitle");
+        String jsonString = "{\"title\":\"title\",\"content\":\"content\"}";
+        CardUpdateRequest cardUpdateRequest = new CardUpdateRequest("title", "content");
 
         //when + then
         assertThat(json.parseObject(jsonString).getTitle())
-                .isEqualTo(cardSearchRequest.getTitle());
+                .isEqualTo(cardUpdateRequest.getTitle());
+        assertThat(json.parseObject(jsonString).getContent())
+                .isEqualTo(cardUpdateRequest.getContent());
     }
 }
