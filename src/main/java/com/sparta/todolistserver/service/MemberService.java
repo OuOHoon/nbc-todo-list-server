@@ -38,10 +38,6 @@ public class MemberService {
                 .map((card) -> CardService.toResponse(username, card)).toList();
     }
 
-//    public CardDetailResponse updateCard(Long id) {
-//        retur
-//    }
-
     private Member toEntity(MemberCreateRequest request) {
         return Member.builder()
                 .username(request.getUsername())

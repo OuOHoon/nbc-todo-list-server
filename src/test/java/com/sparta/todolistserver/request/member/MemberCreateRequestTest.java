@@ -34,9 +34,11 @@ class MemberCreateRequestTest {
             //given
             MemberCreateRequest validRequest =
                     new MemberCreateRequest("username1", "password");
+
             //when
             Set<ConstraintViolation<MemberCreateRequest>> valid =
                     validator.validateProperty(validRequest, "username");
+
             //then
             assertThat(valid.size()).isEqualTo(0);
         }
@@ -48,11 +50,13 @@ class MemberCreateRequestTest {
                     new MemberCreateRequest("usernamesizeover", "password");
             MemberCreateRequest sizeUnderRequest =
                     new MemberCreateRequest("u", "password");
+
             //when
             Set<ConstraintViolation<MemberCreateRequest>> sizeOver =
                     validator.validateProperty(sizeOverRequest, "username");
             Set<ConstraintViolation<MemberCreateRequest>> sizeUnder =
                     validator.validateProperty(sizeUnderRequest, "username");
+
             //then
             assertThat(sizeOver.size()).isGreaterThan(0);
             assertThat(sizeUnder.size()).isGreaterThan(0);
@@ -65,11 +69,13 @@ class MemberCreateRequestTest {
                     new MemberCreateRequest("Invalid", "password");
             MemberCreateRequest notEnglishRequest =
                     new MemberCreateRequest("한글이름", "password");
+
             //when
             Set<ConstraintViolation<MemberCreateRequest>> upperCase =
                     validator.validateProperty(upperCaseRequest, "username");
             Set<ConstraintViolation<MemberCreateRequest>> notEnglish =
                     validator.validateProperty(notEnglishRequest, "username");
+
             //then
             assertThat(upperCase.size()).isGreaterThan(0);
             assertThat(notEnglish.size()).isGreaterThan(0);
@@ -85,9 +91,11 @@ class MemberCreateRequestTest {
             //given
             MemberCreateRequest validRequest =
                     new MemberCreateRequest("username1", "passworD1");
+
             //when
             Set<ConstraintViolation<MemberCreateRequest>> valid =
                     validator.validateProperty(validRequest, "password");
+
             //then
             assertThat(valid.size()).isEqualTo(0);
         }
@@ -99,11 +107,13 @@ class MemberCreateRequestTest {
                     new MemberCreateRequest("username", "password123456789");
             MemberCreateRequest sizeUnderRequest =
                     new MemberCreateRequest("username", "pass");
+
             //when
             Set<ConstraintViolation<MemberCreateRequest>> sizeOver =
                     validator.validateProperty(sizeOverRequest, "password");
             Set<ConstraintViolation<MemberCreateRequest>> sizeUnder =
                     validator.validateProperty(sizeUnderRequest, "password");
+
             //then
             assertThat(sizeOver.size()).isGreaterThan(0);
             assertThat(sizeUnder.size()).isGreaterThan(0);
@@ -116,11 +126,13 @@ class MemberCreateRequestTest {
                     new MemberCreateRequest("username", "password!");
             MemberCreateRequest notEnglishRequest =
                     new MemberCreateRequest("username", "password한글");
+
             //when
             Set<ConstraintViolation<MemberCreateRequest>> upperCase =
                     validator.validateProperty(upperCaseRequest, "password");
             Set<ConstraintViolation<MemberCreateRequest>> notEnglish =
                     validator.validateProperty(notEnglishRequest, "password");
+
             //then
             assertThat(upperCase.size()).isGreaterThan(0);
             assertThat(notEnglish.size()).isGreaterThan(0);
