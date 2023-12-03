@@ -7,6 +7,7 @@ import com.sparta.todolistserver.repository.CardRepository;
 import com.sparta.todolistserver.repository.MemberRepository;
 import com.sparta.todolistserver.request.member.MemberCreateRequest;
 import com.sparta.todolistserver.response.card.CardResponse;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -15,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ActiveProfiles("test")
+
 @ExtendWith(MockitoExtension.class)
 class MemberServiceTest {
 
@@ -42,14 +42,15 @@ class MemberServiceTest {
     private MemberService memberService;
 
     @Test
+    @DisplayName("MemberService.create")
     public void Given_MemberCreateRequest_When_Create_Then_SaveEntity() {
         //given
         MemberCreateRequest request =
                 new MemberCreateRequest("username", "password");
         String encodedPassword = "encodedpassword";
+        when(passwordEncoder.encode(anyString())).thenReturn(encodedPassword);
 
         //when
-        when(passwordEncoder.encode(anyString())).thenReturn(encodedPassword);
         memberService.create(request);
         ArgumentCaptor<Member> memberCaptor = ArgumentCaptor.forClass(Member.class);
         verify(memberRepository).save(memberCaptor.capture());
@@ -65,10 +66,10 @@ class MemberServiceTest {
         //given
         MemberCreateRequest request =
                 new MemberCreateRequest("username", "password");
-
-        //when
         when(memberRepository.save(Mockito.any(Member.class)))
                 .thenThrow(new DuplicateUsernameException());
+
+        //when
         Throwable throwable = catchThrowable(() -> memberService.create(request));
 
         //then
@@ -89,9 +90,9 @@ class MemberServiceTest {
                         .content("내용2")
                         .build()
         );
+        when(cardRepository.findByMember_Username(username)).thenReturn(cards);
 
         //when
-        when(cardRepository.findByMember_Username(username)).thenReturn(cards);
         List<CardResponse> cardResponses = memberService.findCards(username);
 
         //then
