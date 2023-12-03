@@ -2,6 +2,7 @@ package com.sparta.todolistserver.service;
 
 import com.sparta.todolistserver.domain.Card;
 import com.sparta.todolistserver.domain.Member;
+import com.sparta.todolistserver.exception.DuplicateUsernameException;
 import com.sparta.todolistserver.repository.CardRepository;
 import com.sparta.todolistserver.repository.MemberRepository;
 import com.sparta.todolistserver.request.member.MemberCreateRequest;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
@@ -18,6 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -55,6 +58,21 @@ class MemberServiceTest {
         //then
         assertThat(savedMember.getUsername()).isEqualTo(request.getUsername());
         assertThat(savedMember.getPassword()).isEqualTo(encodedPassword);
+    }
+
+    @Test
+    public void Given_DuplicateUsernameMemberCreateRequest_When_Create_Then_ThrowDuplicateUsernameException() {
+        //given
+        MemberCreateRequest request =
+                new MemberCreateRequest("username", "password");
+
+        //when
+        when(memberRepository.save(Mockito.any(Member.class)))
+                .thenThrow(new DuplicateUsernameException());
+        Throwable throwable = catchThrowable(() -> memberService.create(request));
+
+        //then
+        assertThat(throwable).isInstanceOf(DuplicateUsernameException.class);
     }
 
     @Test
