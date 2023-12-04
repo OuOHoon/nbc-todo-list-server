@@ -1,5 +1,26 @@
-# nbc-todo-list-server
+# 테스트 코드 추가
 
+## 요구사항 구현 목록
+
+- [x] DTO, Entity Test 추가하기
+- [x] Controller Test 추가하기
+   - CardController의 일부만 추가했습니다
+- [x] Service Test 추가하기
+  - 요구사항
+- [x] Repository Test 추가하기
+   - `@DataJpaTest` 를 사용하여 Repository Test 를 추가합니다.
+   - User, Todo, Comment Repository 에 대해서 테스트를 추가합니다.
+
+
+
+
+
+
+
+
+
+---
+# nbc-todo-list-server
 <aside>
 ❓ **Why: 과제 제출시에는 아래 질문을 고민해보고 답변을 함께 제출해주세요.**
 
